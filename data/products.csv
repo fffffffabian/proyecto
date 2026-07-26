@@ -1,0 +1,4 @@
+id,name,description,category,price,available
+1,"California Roll","Rollo de cangrejo, aguacate y pepino.","Rollos",45,true
+2,"Philadelphia Roll","Rollo de salmón, queso crema y aguacate.","Rollos",52,true
+3,"Dragon Roll","Rollo de camarón tempura cubierto con aguacate.","Especialidades",65,true
