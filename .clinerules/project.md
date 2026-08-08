@@ -17,6 +17,8 @@ Cercano, rápido, confiable. Not this: no se siente un marketplace corporativo f
 
 ## Screens
 - Menú (home)
+- Detalle de producto
+- Todas las pantallas comparten el mismo estilo de tarjeta (esquinas redondeadas de 16px, barra superior terracota y encabezados en Poppins), para que el Menú y el Detalle se vean como el mismo producto.
 
 ## Stack, pinned
 Plain HTML, CSS and JavaScript reading a local JSON file, styled with Bootstrap 5 loaded from a
