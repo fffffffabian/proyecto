@@ -1,4 +1,10 @@
-id,name,description,category,price,available
-1,"California Roll","Rollo de cangrejo, aguacate y pepino.","Rollos",45,true
-2,"Philadelphia Roll","Rollo de salmón, queso crema y aguacate.","Rollos",52,true
-3,"Dragon Roll","Rollo de camarón tempura cubierto con aguacate.","Especialidades",65,true
+id,business_id,name,description,category,price,available
+1,1,"California Roll","Rollo de cangrejo, aguacate y pepino.","Rollos",45,true
+2,1,"Philadelphia Roll","Rollo de salmón, queso crema y aguacate.","Rollos",52,true
+3,1,"Dragon Roll","Rollo de camarón tempura cubierto con aguacate.","Especialidades",65,true
+4,2,"Acetaminofén 500mg","Caja con 24 tabletas.","Medicamentos",25,true
+5,2,"Alcohol en gel 250ml","Gel antibacterial para manos.","Cuidado personal",30,true
+6,2,"Vitamina C 1g","Frasco con 30 tabletas efervescentes.","Suplementos",55,false
+7,3,"Azúcar 5 lb","Bolsa de azúcar blanca estándar.","Despensa",28,true
+8,3,"Aceite vegetal 1L","Botella de aceite para cocinar.","Despensa",22,true
+9,3,"Huevos (cartón de 30)","Cartón de 30 huevos frescos.","Frescos",40,true

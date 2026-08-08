@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Mr Sushi",
+    "slug": "mr-sushi",
+    "category": "Comida",
+    "phone": "2200-1111",
+    "delivery_zone": "Zona 10, Ciudad de Guatemala",
+    "shipping_cost": 15,
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "Farmacia La Salud",
+    "slug": "farmacia-la-salud",
+    "category": "Farmacia",
+    "phone": "2200-2222",
+    "delivery_zone": "Zona 15, Ciudad de Guatemala",
+    "shipping_cost": 10,
+    "active": true
+  },
+  {
+    "id": 3,
+    "name": "Abarrotería Doña Mari",
+    "slug": "abarroteria-dona-mari",
+    "category": "Abarrotes",
+    "phone": "2200-3333",
+    "delivery_zone": "Zona 7, Ciudad de Guatemala",
+    "shipping_cost": 12,
+    "active": true
+  }
+]

@@ -1,17 +1,17 @@
-# Mr Sushi Online
+# Food Flow
 
-Mr Sushi Online es una plataforma de pedidos en línea diseñada para clientes que desean ordenar sushi de forma rápida y sencilla desde cualquier dispositivo. El objetivo es reducir el tiempo de compra, mejorar la experiencia del cliente y facilitar la gestión de pedidos para el restaurante.
+Food Flow es una plataforma web SaaS que permite a pequeñas y medianas empresas (PyMEs) ofrecer su propio servicio de pedidos y entrega a domicilio. Cada empresa se registra, obtiene su tienda en línea con su catálogo y un panel para gestionar y dar seguimiento a los pedidos. La entrega la realiza cada empresa con sus propios repartidores.
 
 ## Los tres Must
 
 - Realizar pedidos en línea.
-- Confirmar automáticamente el pedido.
-- Consultar el estado del pedido en tiempo real.
+- Confirmación inmediata del pedido.
+- Seguimiento del estado del pedido.
 
 ## Características principales
 
 | Funcionalidad | Prioridad |
 |--------------|-----------|
 | Realizar pedido | Must |
-| Confirmación automática | Must |
+| Confirmación inmediata | Must |
 | Seguimiento del pedido | Must |

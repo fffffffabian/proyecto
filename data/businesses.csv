@@ -1,0 +1,4 @@
+id,name,slug,category,phone,delivery_zone,shipping_cost,active
+1,"Mr Sushi","mr-sushi","Comida","2200-1111","Zona 10, Ciudad de Guatemala",15,true
+2,"Farmacia La Salud","farmacia-la-salud","Farmacia","2200-2222","Zona 15, Ciudad de Guatemala",10,true
+3,"Abarrotería Doña Mari","abarroteria-dona-mari","Abarrotes","2200-3333","Zona 7, Ciudad de Guatemala",12,true
