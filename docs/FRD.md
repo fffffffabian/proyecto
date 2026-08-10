@@ -6,9 +6,14 @@ Realizar un pedido en línea para entrega a domicilio y darle seguimiento hasta 
 
 Este documento describe, pantalla por pantalla, las tres funcionalidades Must del PRD:
 
-1. Realizar pedidos en línea → Pantallas 1, 2 y 3.
-2. Confirmación inmediata del pedido → Pantalla 4.
-3. Seguimiento del estado del pedido → Pantalla 5.
+1. Realizar pedidos en línea → Pantallas 1, 2, 3 y 4.
+2. Confirmación inmediata del pedido → Pantalla 5.
+3. Seguimiento del estado del pedido → Pantalla 6.
+
+### Estado de implementación (D2)
+
+- **Construidas y funcionando:** Pantalla 1 (Menú), Pantalla 2 (Detalle de producto) y Pantalla 3 (Carrito).
+- **Pendientes (próximas entregas):** Pantalla 4 (Datos de entrega), Pantalla 5 (Confirmación) y Pantalla 6 (Seguimiento).
 
 ---
 
@@ -16,41 +21,65 @@ Este documento describe, pantalla por pantalla, las tres funcionalidades Must de
 
 ### Usuario visualiza
 
-- Productos
-- Precio
-- Imagen
-- Botón Agregar al carrito
+- Nombre de la tienda, su zona de entrega y su costo de envío
+- Productos con nombre, descripción, categoría y precio
+- Imagen de cada producto
+- Botón Ver detalle
 
 ### Entrada
 
-- Producto
-- Cantidad
-- Observaciones
+- Selección de un producto (Ver detalle)
 
 ### Salida
 
-- Producto agregado al carrito
-- Total actualizado
+- Abre el detalle del producto elegido
 
 ### Casos borde
 
-- Si un producto está agotado, se muestra "No disponible" y el botón Agregar al carrito queda deshabilitado.
-- Si la cantidad es 0 o queda vacía, el producto no se agrega y se solicita una cantidad válida (mínimo 1).
+- Si el menú no tiene productos, se muestra "Este menú todavía no tiene productos."
 
 ---
 
-## Pantalla 2 – Carrito
+## Pantalla 2 – Detalle de producto
 
 ### Usuario visualiza
 
-- Productos seleccionados
-- Cantidades
-- Total
+- Nombre, descripción, categoría y precio del producto
+- Imagen del producto
+- De qué tienda es y su costo de envío
+- Botón Agregar al carrito
+- Enlace Volver al menú
 
 ### Entrada
 
-- Modificar cantidad
+- Botón Agregar al carrito
+
+### Salida
+
+- Producto agregado al carrito (el contador del carrito se actualiza)
+- Mensaje de confirmación con un enlace para ver el carrito
+
+### Casos borde
+
+- Si el producto está agotado, el botón muestra "No disponible" y queda deshabilitado.
+- Si el producto no existe, se muestra "No encontramos ese producto."
+
+---
+
+## Pantalla 3 – Carrito
+
+### Usuario visualiza
+
+- Productos seleccionados con su cantidad y precio por unidad
+- Total de cada línea
+- Subtotal, Envío y Total
+
+### Entrada
+
+- Modificar cantidad (+ / −)
 - Eliminar producto
+- Vaciar carrito
+- Botón Continuar
 
 ### Salida
 
@@ -63,7 +92,7 @@ Este documento describe, pantalla por pantalla, las tres funcionalidades Must de
 
 ---
 
-## Pantalla 3 – Datos de entrega
+## Pantalla 4 – Datos de entrega
 
 ### Usuario visualiza
 
@@ -91,7 +120,7 @@ Total final.
 
 ---
 
-## Pantalla 4 – Confirmación
+## Pantalla 5 – Confirmación
 
 ### Usuario visualiza
 
@@ -112,7 +141,7 @@ Estado "Pedido recibido".
 
 ---
 
-## Pantalla 5 – Seguimiento del pedido
+## Pantalla 6 – Seguimiento del pedido
 
 ### Usuario visualiza
 
