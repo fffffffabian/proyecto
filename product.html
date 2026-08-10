@@ -59,6 +59,9 @@
       border: none;
     }
     .ff-btn:hover { background: #d8a24f; color: var(--ff-ink); }
+    .ff-cartbtn { background: #fff; color: var(--ff-primary); font-weight: 600; border: none; }
+    .ff-cartbtn:hover { background: #f3e7d7; color: var(--ff-primary); }
+    .ff-cartbtn .badge { background: var(--ff-accent); color: var(--ff-ink); }
     .ff-meta { color: #6b5750; }
     footer { color: #8a756c; }
   </style>
@@ -69,7 +72,12 @@
   <nav class="navbar ff-navbar shadow-sm">
     <div class="container">
       <a class="ff-back" href="index.html">← Volver al menú</a>
-      <span class="navbar-brand mb-0 h1">🍽️ Food Flow</span>
+      <div class="d-flex align-items-center gap-3">
+        <span class="navbar-brand mb-0 h1">🍽️ Food Flow</span>
+        <a class="btn ff-cartbtn" href="cart.html">
+          🛒 Carrito <span id="ff-cart-count" class="badge">0</span>
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -121,7 +129,7 @@
       document.title = "Food Flow — " + p.name;
 
       const boton = p.available
-        ? '<button class="btn ff-btn btn-lg">Agregar al carrito</button>'
+        ? '<button id="addBtn" class="btn ff-btn btn-lg">Agregar al carrito</button>'
         : '<button class="btn btn-secondary btn-lg" disabled>No disponible</button>';
 
       const notaTienda = tienda
@@ -140,8 +148,19 @@
             notaTienda +
             '<p class="ff-price mb-4">Q' + p.price + '</p>' +
             boton +
+            '<p id="addMsg" class="text-success fw-semibold mt-3 mb-0 d-none">Agregado a tu carrito. <a href="cart.html">Ver carrito →</a></p>' +
           '</div>' +
         '</div>';
+
+      // Conectar "Agregar al carrito": agrega el producto y muestra el enlace al carrito.
+      const addBtn = document.getElementById("addBtn");
+      if (addBtn && p.available) {
+        addBtn.addEventListener("click", function () {
+          window.FoodFlowCart.add(p.id);
+          const msg = document.getElementById("addMsg");
+          if (msg) { msg.classList.remove("d-none"); }
+        });
+      }
     })
     .catch(function () {
       mostrarEstado("No encontramos ese producto.");
@@ -150,5 +169,7 @@
 
   <!-- Bootstrap 5 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Lógica del carrito -->
+  <script src="cart.js"></script>
 </body>
 </html>
