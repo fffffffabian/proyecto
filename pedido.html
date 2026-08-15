@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Flow — Datos de entrega</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: Poppins (headings) + Open Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ff-primary: #A44A3F;
+      --ff-accent:  #E4B363;
+      --ff-bg:      #FAF3EA;
+      --ff-ink:     #3a2b26;
+    }
+    body { background: var(--ff-bg); color: var(--ff-ink); font-family: "Open Sans", system-ui, sans-serif; }
+    h1, h2, h3, .navbar-brand { font-family: "Poppins", system-ui, sans-serif; }
+    .ff-navbar { background: var(--ff-primary); }
+    .ff-navbar .navbar-brand { color: #fff; font-weight: 700; letter-spacing: .3px; }
+    .ff-navbar .ff-back { color: #fff; text-decoration: none; font-weight: 600; }
+    .ff-navbar .ff-back:hover { text-decoration: underline; }
+    h1.ff-title { color: var(--ff-primary); font-weight: 700; }
+    .ff-card { border: none; border-radius: 16px; box-shadow: 0 6px 18px rgba(110, 70, 55, .10); }
+    .ff-btn { background: var(--ff-accent); color: var(--ff-ink); font-weight: 600; border: none; }
+    .ff-btn:hover { background: #d8a24f; color: var(--ff-ink); }
+    .ff-total { color: var(--ff-primary); }
+    footer { color: #8a756c; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar ff-navbar shadow-sm">
+    <div class="container">
+      <a class="ff-back" href="cart.html">← Volver al carrito</a>
+      <span class="navbar-brand mb-0 h1">🍽️ Food Flow</span>
+    </div>
+  </nav>
+
+  <main class="container py-4" style="max-width:640px">
+    <h1 class="ff-title mb-4">Datos de entrega</h1>
+
+    <!-- Resumen del pedido (viene del carrito) -->
+    <div class="card ff-card mb-4">
+      <div class="card-body">
+        <h2 class="h6 text-muted mb-2">Tu pedido</h2>
+        <div id="resumen"></div>
+      </div>
+    </div>
+
+    <!-- Formulario -->
+    <form id="form" class="card ff-card">
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label" for="nombre">Nombre</label>
+          <input class="form-control" id="nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="telefono">Teléfono</label>
+          <input class="form-control" id="telefono" name="telefono" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="direccion">Dirección</label>
+          <input class="form-control" id="direccion" name="direccion" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="metodo_pago">Método de pago</label>
+          <select class="form-select" id="metodo_pago" name="metodo_pago" required>
+            <option value="Efectivo contra entrega">Efectivo contra entrega</option>
+            <option value="Tarjeta contra entrega">Tarjeta contra entrega</option>
+          </select>
+        </div>
+        <button type="submit" class="btn ff-btn w-100" id="enviar">Confirmar pedido</button>
+      </div>
+    </form>
+
+    <!-- Mensajes -->
+    <div id="ok" class="alert alert-success mt-4 d-none">
+      ¡Gracias! Tu pedido fue recibido. <a href="index.html">Volver al menú</a>
+    </div>
+    <div id="err" class="alert alert-danger mt-4 d-none"></div>
+  </main>
+
+  <footer class="text-center py-4">
+    <small>Food Flow · pedidos a domicilio para PyMEs</small>
+  </footer>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+    // ======= PEGA AQUÍ LOS DOS VALORES DE TU PROYECTO SUPABASE =======
+    const SUPABASE_URL = "https://qwasusqlamfiueqrlhqs.supabase.co";
+    const SUPABASE_KEY = "sb_publishable__1P5tbupj2D4bDhbVoxu8w_o2gfqScB";
+    // ================================================================
+
+    // Armar el resumen del pedido a partir del carrito guardado
+    let pedidoTexto = "";
+    let total = 0;
+
+    Promise.all([
+      fetch("data/products.json").then(function (r) { return r.json(); }),
+      fetch("data/businesses.json").then(function (r) { return r.json(); })
+    ]).then(function (d) {
+      const productos = d[0];
+      const tienda = d[1].find(function (t) { return t.id === 1; });
+      const cart = JSON.parse(localStorage.getItem("ff_cart") || "[]");
+      const resumen = document.getElementById("resumen");
+
+      if (cart.length === 0) {
+        resumen.innerHTML = '<p class="mb-0">Tu carrito está vacío. <a href="index.html">Ir al menú</a></p>';
+        document.getElementById("enviar").disabled = true;
+        return;
+      }
+
+      let subtotal = 0;
+      const lineas = [];
+      let html = "";
+      cart.forEach(function (item) {
+        const p = productos.find(function (x) { return x.id === item.id; });
+        if (!p) { return; }
+        subtotal += p.price * item.qty;
+        lineas.push(item.qty + "× " + p.name);
+        html += '<div class="d-flex justify-content-between"><span>' + item.qty + '× ' + p.name + '</span><span>Q' + (p.price * item.qty) + '</span></div>';
+      });
+      const envio = tienda ? tienda.shipping_cost : 0;
+      total = subtotal + envio;
+      pedidoTexto = lineas.join(", ");
+
+      html += '<hr class="my-2">';
+      html += '<div class="d-flex justify-content-between"><span>Envío</span><span>Q' + envio + '</span></div>';
+      html += '<div class="d-flex justify-content-between fw-bold fs-5 ff-total"><span>Total</span><span>Q' + total + '</span></div>';
+      resumen.innerHTML = html;
+    });
+
+    // Guardar el pedido al enviar el formulario
+    document.getElementById("form").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const err = document.getElementById("err");
+      const ok = document.getElementById("ok");
+      err.classList.add("d-none");
+
+      const fila = {
+        nombre: document.getElementById("nombre").value,
+        telefono: document.getElementById("telefono").value,
+        direccion: document.getElementById("direccion").value,
+        metodo_pago: document.getElementById("metodo_pago").value,
+        pedido: pedidoTexto,
+        total: String(total)
+      };
+
+      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+      const { error } = await supabase.from("pedidos").insert([fila]);
+
+      if (error) {
+        err.textContent = "No pudimos enviar tu pedido: " + error.message;
+        err.classList.remove("d-none");
+        return;
+      }
+
+      // No leemos las filas de vuelta: solo mostramos el agradecimiento.
+      document.getElementById("form").classList.add("d-none");
+      ok.classList.remove("d-none");
+      localStorage.removeItem("ff_cart");
+    });
+  </script>
+</body>
+</html>

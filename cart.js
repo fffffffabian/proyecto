@@ -98,9 +98,8 @@
       '<div class="d-flex justify-content-between fw-bold fs-5 mt-1 ff-total"><span>Total</span><span>Q' + total + '</span></div>' +
       '<div class="d-flex gap-2 mt-3">' +
         '<button class="btn btn-outline-secondary ff-clear">Vaciar</button>' +
-        '<button class="btn ff-btn flex-grow-1 ff-continue">Continuar</button>' +
-      '</div>' +
-      '<p id="ff-continue-msg" class="text-muted small mt-2 mb-0 d-none">Tu pedido está listo. El siguiente paso — ingresar tus datos de entrega — se construirá en la próxima entrega.</p>';
+        '<a class="btn ff-btn flex-grow-1" href="pedido.html">Continuar</a>' +
+      '</div>';
   }
 
   // --- botones dentro del carrito (delegación de eventos) ---
@@ -109,12 +108,6 @@
     const dec = e.target.closest(".ff-dec");
     const rm = e.target.closest(".ff-rm");
     const clr = e.target.closest(".ff-clear");
-    const cont = e.target.closest(".ff-continue");
-    if (cont) {
-      const msg = document.getElementById("ff-continue-msg");
-      if (msg) { msg.classList.remove("d-none"); }
-      return;
-    }
     if (inc) {
       const id = Number(inc.dataset.id);
       const it = getCart().find(function (x) { return x.id === id; });
