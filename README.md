@@ -4,9 +4,9 @@ Food Flow es una plataforma web donde pequeñas y medianas empresas (PyMEs) ofre
 
 ## Prototipo en vivo
 
-🔗 **https://fffffffabian.github.io/proyecto/**
+🔗 **https://proyecto-ashen-gamma.vercel.app/**
 
-Se abre directo en el navegador (publicado con GitHub Pages). No hay que instalar nada; simplemente abre el enlace.
+Se abre directo en el navegador (publicado con Vercel). No hay que instalar nada; simplemente abre el enlace.
 
 ## Qué hace hoy (D2)
 
